@@ -15,8 +15,7 @@
   ],
   "dependencies": {
     "@axonivy/user-editor-protocol": "workspace:~14.0.0-next",
-    "@base-ui/react": "^1.0.0",
-    "react-error-boundary": "^6.0.0"
+    "react-error-boundary": "^6.1.0"
   },
   "peerDependencies": {
     "@axonivy/jsonrpc": "~14.0.0-next",
