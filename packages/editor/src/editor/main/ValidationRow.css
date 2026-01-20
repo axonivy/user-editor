@@ -1,0 +1,6 @@
+.ui-table-row.user-editor-row-error {
+  border-bottom: 1px solid var(--error-color);
+}
+.ui-table-row.user-editor-row-warning {
+  border-bottom: 1px solid var(--warning-color);
+}

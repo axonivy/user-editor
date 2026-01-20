@@ -1,0 +1,47 @@
+{
+  "common": {
+    "hotkey": {
+      "focusInscription": "Focus Inscription ({{hotkey}})",
+      "focusMain": "Focus Main ({{hotkey}})",
+      "focusToolbar": "Focus Toolbar ({{hotkey}})",
+      "help": "Open Help ({{hotkey}})",
+      "redo": "Redo ({{hotkey}})",
+      "undo": "Undo ({{hotkey}})"
+    },
+    "label": {
+      "cancel": "Cancel",
+      "details": "Details",
+      "name": "Name"
+    },
+    "message": {
+      "errorOccurred": "An error has occurred: {{message}}"
+    }
+  },
+  "dialog": {
+    "addUser": {
+      "desc": "Add a new user.",
+      "title": "Add User"
+    },
+    "create": "Create",
+    "createTooltip": "Hold {{modifier}} to add an additional User."
+  },
+  "hotkey": {
+    "addUser": "Add User ({{hotkey}})",
+    "deleteUser": "Delete User ({{hotkey}})"
+  },
+  "label": {
+    "noUserSelected": "No User Selected",
+    "users": "Users"
+  },
+  "message": {
+    "addFirstUser": "Add your first user to get started",
+    "emptyName": "Name cannot be empty.",
+    "errorOnly": "Error: {{error}}",
+    "notFound": "Not Found",
+    "userAlreadyExists": "User already exists."
+  },
+  "title": {
+    "detail": "User",
+    "main": "Users - {{name}}"
+  }
+}

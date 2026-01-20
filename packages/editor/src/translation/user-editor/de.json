@@ -1,0 +1,47 @@
+{
+  "common": {
+    "hotkey": {
+      "focusInscription": "Fokus Detailansicht ({{hotkey}})",
+      "focusMain": "Fokus Hauptansicht ({{hotkey}})",
+      "focusToolbar": "Fokus Toolbar ({{hotkey}})",
+      "help": "Hilfe öffnen ({{hotkey}})",
+      "redo": "Wiederholen ({{hotkey}})",
+      "undo": "Rückgängig ({{hotkey}})"
+    },
+    "label": {
+      "cancel": "Abbrechen",
+      "details": "Details",
+      "name": "Name"
+    },
+    "message": {
+      "errorOccurred": "Ein Fehler ist aufgetreten: {{message}}"
+    }
+  },
+  "dialog": {
+    "addUser": {
+      "desc": "Eine neuer Benutzer hinzufügen.",
+      "title": "Benutzer hinzufügen"
+    },
+    "create": "Erstellen",
+    "createTooltip": "Halte {{modifier}} gedrückt, um einen weiteren Benutzer hinzuzufügen."
+  },
+  "hotkey": {
+    "addUser": "Benutzer hinzufügen ({{hotkey}})",
+    "deleteUser": "Benutzer löschen ({{hotkey}})"
+  },
+  "label": {
+    "noUserSelected": "Kein Benutzer ausgewählt",
+    "users": "Benutzer"
+  },
+  "message": {
+    "addFirstUser": "Fügen Sie Ihren ersten Benutzer hinzu, um zu beginnen",
+    "emptyName": "Name darf nicht leer sein.",
+    "errorOnly": "Fehler: {{error}}",
+    "notFound": "Nicht gefunden",
+    "userAlreadyExists": "Benutzer existiert bereits."
+  },
+  "title": {
+    "detail": "Benutzer",
+    "main": "Benutzer - {{name}}"
+  }
+}

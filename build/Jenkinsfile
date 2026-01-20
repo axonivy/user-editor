@@ -1,0 +1,58 @@
+pipeline {
+  agent any
+
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '30', artifactNumToKeepStr: '5'))
+  }
+
+  triggers {
+    cron '@midnight'
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+        script {
+          catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+            docker.build('node', '-f build/Dockerfile.node .').inside {
+              sh 'pnpm run update:axonivy:next'
+              sh 'pnpm run ci'
+            }
+          }
+          archiveArtifacts artifacts: 'integrations/standalone/build/**', allowEmptyArchive: true
+          currentBuild.description = "<a href=${BUILD_URL}artifact/integrations/standalone/build/index.html?server=localhost:8081&secure=false&app=designer&pmv=user-test-project&file=users.yaml>&raquo; User Editor</a><br>" + 
+            "<a href=${BUILD_URL}artifact/integrations/standalone/build/mock.html>&raquo; User Editor Mock</a>"
+
+          withChecks('ESLint') {
+            recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: 'eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
+          }
+          withChecks('Test') {
+            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'packages/**/report.xml'
+          }
+        }
+      }
+    }
+    stage('Publish (NPM)') {
+      when {
+        expression { isReleasingBranch() && currentBuild.changeSets.size() > 0 }
+      }
+      steps {
+        script {
+          docker.build('node', '-f build/Dockerfile.node .').inside {
+            sh 'pnpm run build'
+            sh 'git checkout .'
+            withCredentials([string(credentialsId: 'npmjs-registry.ivyteam.ch-auth-token', variable: 'NPM_AUTH_TOKEN')]) {
+              sh 'npm set "//npmjs-registry.ivyteam.ch/:_authToken = $NPM_AUTH_TOKEN"'
+              sh 'pnpm run publish:next'
+            }
+          }
+        }
+      }
+    }
+  }
+  post {
+    always {
+      discoverGitReferenceBuild()
+    }
+  }
+}

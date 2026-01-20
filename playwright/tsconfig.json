@@ -1,0 +1,11 @@
+{
+  "extends": "@axonivy/ts-config/integration",
+  "compilerOptions": {
+    "rootDir": ".",
+    "rootDirs": ["tests"],
+    "outDir": "lib",
+    "noImplicitAny": false,
+    "types": ["node"]
+  },
+  "include": ["tests"]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "@axonivy/user-editor-protocol",
+  "version": "14.0.0-next",
+  "private": false,
+  "license": "Apache-2.0",
+  "author": "Axon Ivy AG",
+  "homepage": "https://developer.axonivy.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axonivy/user-editor"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "type": "module",
+  "types": "lib/index.d.ts",
+  "module": "lib/index.js",
+  "source": "src/index",
+  "scripts": {
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "build": "tsc --build",
+    "package": "tsc",
+    "build:clean": "pnpm run clean && pnpm run generate && pnpm run build",
+    "generate": "node ./schemaCodegen.cjs",
+    "type": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "json-schema-to-typescript": "^15.0.4"
+  }
+}

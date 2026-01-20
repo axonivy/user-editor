@@ -1,0 +1,32 @@
+{
+  // Use IntelliSense to learn about possible Node.js debug attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Standalone (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000/?server=localhost:8080/~Developer-user-test-project&app=Developer-user-test-project&pmv=user-test-project&file=config/users.yaml&directSave",
+      "presentation": {
+        "group": "4. Standalone",
+        "order": 1
+      },
+      "preLaunchTask": "Start Standalone",
+      "postDebugTask": "Terminate All Tasks"
+    },
+    {
+      "name": "Launch Standalone Mock (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000/mock.html",
+      "presentation": {
+        "group": "4. Standalone",
+        "order": 1
+      },
+      "preLaunchTask": "Start Standalone",
+      "postDebugTask": "Terminate All Tasks"
+    }
+  ]
+}

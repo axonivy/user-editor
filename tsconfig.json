@@ -1,0 +1,12 @@
+{
+  "extends": "@axonivy/ts-config/base",
+  "files": [],
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "references": [
+    { "path": "packages/protocol/tsconfig.json" },
+    { "path": "packages/editor/tsconfig.json" },
+    { "path": "integrations/standalone/tsconfig.json" }
+  ]
+}
