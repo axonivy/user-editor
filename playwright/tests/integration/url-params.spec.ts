@@ -11,8 +11,7 @@ test('theme dark', async ({ page }) => {
   await expect(page.locator('html')).toHaveClass('dark');
 });
 
-// eslint-disable-next-line playwright/no-skipped-test
-test.skip('readonly false', async ({ page }) => {
+test('readonly false', async ({ page }) => {
   const editor = await UserEditor.openUser(page, { readonly: false });
   await expect(editor.toolbar.redo).toBeVisible();
   await expect(editor.toolbar.undo).toBeVisible();
@@ -20,8 +19,7 @@ test.skip('readonly false', async ({ page }) => {
   await expect(editor.main.delete).toBeVisible();
 });
 
-// eslint-disable-next-line playwright/no-skipped-test
-test.skip('readonly true', async ({ page }) => {
+test('readonly true', async ({ page }) => {
   const editor = await UserEditor.openUser(page, { readonly: true });
   await expect(editor.main.locator).toBeVisible();
   await expect(editor.toolbar.redo).toBeHidden();
