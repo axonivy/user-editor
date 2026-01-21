@@ -2,11 +2,11 @@ import { expect, test } from '@playwright/test';
 import { AddUserDialog } from '../page-objects/AddUserDialog';
 import { UserEditor } from '../page-objects/UserEditor';
 
-// eslint-disable-next-line playwright/no-skipped-test
-test.skip('data', async ({ page }) => {
+test('data', async ({ page }) => {
   const editor = await UserEditor.openUser(page);
   await expect(editor.main.locator.getByText('Users').first()).toBeVisible();
-  await editor.main.table.expectToHaveRows(['Employee', '', 'ManagerTeamleader'], ['Teamleader', '', ''], ['Manager', '', ''], ['HR Manager', 'Manager', '']);
+  await editor.main.table.header(0).locator.getByRole('button', { name: 'Sort by Name' }).click();
+  await editor.main.table.expectToHaveRows(['bf'], ['hb'], ['hf'], ['jb']);
 });
 
 // eslint-disable-next-line playwright/no-skipped-test
@@ -57,6 +57,8 @@ test('sort', async ({ page }) => {
   await editor.main.table.expectToHaveRows(['Employee']);
   await editor.main.table.header(0).locator.getByRole('button', { name: 'Sort by Name' }).click();
   await editor.main.table.expectToHaveRows(['Deliverer']);
+  await editor.main.table.header(0).locator.getByRole('button', { name: 'Sort by Name' }).click();
+  await editor.main.table.expectToHaveRows(['Teamleader']);
 });
 
 test('add', async ({ page }) => {
