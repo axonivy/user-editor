@@ -6,7 +6,7 @@ test('data', async ({ page }) => {
   const editor = await UserEditor.openUser(page);
   await expect(editor.main.locator.getByText('Users').first()).toBeVisible();
   await editor.main.table.header(0).locator.getByRole('button', { name: 'Sort by Name' }).click();
-  await editor.main.table.expectToHaveRows(['bf'], ['hb'], ['hf'], ['jb']);
+  await editor.main.table.expectToHaveRows(['bf', 'Benjamin Franklin', 'Executive ManagerFinance'], ['hb', 'Hugo Boss'], ['hf', 'Henry Ford', 'IT Manager'], ['jb']);
 });
 
 // eslint-disable-next-line playwright/no-skipped-test
@@ -38,7 +38,7 @@ test('select user', async ({ page }) => {
   await expect(editor.detail.header).toHaveText('User');
 
   await editor.main.table.row(0).locator.click();
-  await expect(editor.detail.header).toHaveText('Employee');
+  await expect(editor.detail.header).toHaveText('wt');
 
   await editor.main.table.header(0).locator.click();
   await editor.main.table.expectToHaveNoSelection();
@@ -47,36 +47,33 @@ test('select user', async ({ page }) => {
 
 test('search', async ({ page }) => {
   const editor = await UserEditor.openMock(page);
-  await editor.main.table.expectToHaveRowCount(12);
-  await editor.main.search.fill('ager');
-  await editor.main.table.expectToHaveRowCount(6);
+  await editor.main.table.expectToHaveRowCount(8);
+  await editor.main.search.fill('lead');
+  await editor.main.table.expectToHaveRowCount(2);
 });
 
 test('sort', async ({ page }) => {
   const editor = await UserEditor.openMock(page);
-  await editor.main.table.expectToHaveRows(['Employee']);
+  await editor.main.table.expectToHaveRows(['wt']);
   await editor.main.table.header(0).locator.getByRole('button', { name: 'Sort by Name' }).click();
-  await editor.main.table.expectToHaveRows(['Deliverer']);
-  await editor.main.table.header(0).locator.getByRole('button', { name: 'Sort by Name' }).click();
-  await editor.main.table.expectToHaveRows(['Teamleader']);
+  await editor.main.table.expectToHaveRows(['bf']);
 });
 
 test('add', async ({ page }) => {
   const editor = await UserEditor.openMock(page);
-  await editor.main.table.expectToHaveRowCount(12);
+  await editor.main.table.expectToHaveRowCount(8);
   const dialog = await editor.main.openAddUserDialog();
   await dialog.name.locator.fill('NewUser');
   await dialog.cancel.click();
-  await editor.main.table.expectToHaveRowCount(12);
-
+  await editor.main.table.expectToHaveRowCount(8);
   await editor.main.openAddUserDialog();
   await dialog.name.locator.fill('NewUser');
   await dialog.create.click();
-  await editor.main.table.expectToHaveRowCount(13);
-  await editor.main.table.row(12).expectToHaveColumns('NewUser');
-  await editor.main.table.row(12).locator.click();
+  await editor.main.table.expectToHaveRowCount(9);
+  await editor.main.table.row(8).expectToHaveColumns('NewUser');
+  await editor.main.table.row(8).locator.click();
   await editor.main.delete.click();
-  await editor.main.table.expectToHaveRowCount(12);
+  await editor.main.table.expectToHaveRowCount(8);
 });
 
 test('empty', async ({ page }) => {

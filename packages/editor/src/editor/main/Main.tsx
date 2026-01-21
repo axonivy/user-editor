@@ -1,4 +1,5 @@
 import {
+  Badge,
   BasicField,
   Button,
   deleteFirstSelectedRow,
@@ -25,7 +26,7 @@ import {
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { UserData } from '@axonivy/user-editor-protocol';
 import { getCoreRowModel, useReactTable, type ColumnDef, type Table as ReactTable } from '@tanstack/react-table';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../context/AppContext';
 import { useKnownHotkeys } from '../../utils/useKnownHotkeys';
@@ -49,23 +50,54 @@ export const Main = () => {
   });
   const globalFilter = useTableGlobalFilter();
   const sort = useTableSort();
-  const columns: Array<ColumnDef<UserData, string>> = [
-    {
-      accessorKey: 'name',
-      header: ({ column }) => <SortableHeader column={column} name={t('common.label.name')} />,
-      cell: cell => (
-        <Flex alignItems='center' gap={1}>
-          {<IvyIcon icon={IvyIcons.Users} />}
-          <span>{cell.getValue()}</span>
-        </Flex>
-      )
-    }
-  ];
+  const columns = useMemo<ColumnDef<UserData, string>[]>(
+    () => [
+      {
+        accessorKey: 'name',
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.name')} />,
+        cell: cell => (
+          <Flex alignItems='center' gap={1}>
+            {<IvyIcon icon={IvyIcons.User} />}
+            <span>{cell.getValue()}</span>
+          </Flex>
+        )
+      },
+      {
+        accessorKey: 'fullName',
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.fullName')} />,
+        cell: cell => (
+          <Flex alignItems='center' gap={1}>
+            <span>{cell.getValue()}</span>
+          </Flex>
+        )
+      },
+      {
+        id: 'roles',
+        accessorFn: row => row.roles.join(','),
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.roles')} />,
+        cell: cell => (
+          <Flex alignItems='center' gap={1}>
+            {cell
+              .getValue()
+              .split(',')
+              .filter(member => member.trim().length > 0)
+              .map(member => (
+                <Badge key={member} variant='secondary' size='s'>
+                  {member}
+                </Badge>
+              ))}
+          </Flex>
+        )
+      }
+    ],
+    [t]
+  );
 
   const table = useReactTable({
     ...selection.options,
     ...globalFilter.options,
     ...sort.options,
+    columnResizeMode: 'onChange',
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),

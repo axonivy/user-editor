@@ -2,7 +2,24 @@ import type { UserData } from '@axonivy/user-editor-protocol';
 import { customRenderHook } from 'test-utils';
 import { useValidateAddUser } from './useValidateAddUser';
 
-const data: Array<UserData> = [{ name: 'Employee' }, { name: 'Teamleader' }, { name: 'Manager' }, { name: 'HR Manager' }];
+const data: Array<UserData> = [
+  {
+    name: 'Employee',
+    fullName: '',
+    emailAddress: '',
+    password: '',
+    roles: [],
+    properties: {}
+  },
+  {
+    name: 'Teamleader',
+    fullName: '',
+    emailAddress: '',
+    password: '',
+    roles: [],
+    properties: {}
+  }
+];
 
 const validate = (name: string) => {
   const { result } = customRenderHook(() => useValidateAddUser(name, data));

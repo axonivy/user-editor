@@ -11,7 +11,13 @@
     "label": {
       "cancel": "Abbrechen",
       "details": "Details",
-      "name": "Name"
+      "emailAddress": "E-Mail Adresse",
+      "fullName": "Vollständiger Name",
+      "name": "Name",
+      "password": "Passwort",
+      "properties": "Eigenschaften",
+      "roles": "Rollen",
+      "value": "Wert"
     },
     "message": {
       "errorOccurred": "Ein Fehler ist aufgetreten: {{message}}"
@@ -19,7 +25,7 @@
   },
   "dialog": {
     "addUser": {
-      "desc": "Eine neuer Benutzer hinzufügen.",
+      "desc": "Einen neuen Benutzer hinzufügen.",
       "title": "Benutzer hinzufügen"
     },
     "create": "Erstellen",
@@ -31,6 +37,7 @@
   },
   "label": {
     "noUserSelected": "Kein Benutzer ausgewählt",
+    "removeRow": "Zeile entfernen",
     "users": "Benutzer"
   },
   "message": {
