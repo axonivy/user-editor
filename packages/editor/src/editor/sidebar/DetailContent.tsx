@@ -64,5 +64,5 @@ export const DetailContent = () => {
 
 const fieldMessage = (validations: Array<ValidationResult>, user: string, field: keyof UserData) =>
   validations
-    .filter(v => v.path === `${user}.${field}`)
+    .filter(v => v.path.startsWith(`${user}.${field}`))
     .map<MessageData>(v => ({ message: v.message, variant: v.severity.toLocaleLowerCase() as Lowercase<Severity> }))[0];
