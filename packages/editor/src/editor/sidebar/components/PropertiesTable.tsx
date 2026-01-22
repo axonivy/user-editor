@@ -11,7 +11,7 @@ import {
 import { flexRender, type ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useResizableEditableTable } from '../../hooks/useResizableEditableTable';
+import { useResizableEditableTable } from '../../../hooks/useResizableEditableTable';
 
 type Property = {
   key: string;

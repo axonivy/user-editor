@@ -1,4 +1,5 @@
 import { type Locator, type Page } from '@playwright/test';
+import { Combobox } from './components/Combobox';
 import { Table } from './components/Table';
 
 export class Detail {
@@ -11,7 +12,7 @@ export class Detail {
   readonly password: Locator;
   readonly fullName: Locator;
   readonly emailAddress: Locator;
-  readonly roles: Locator;
+  readonly roles: Combobox;
   readonly properties: Table;
 
   constructor(page: Page) {
@@ -24,7 +25,7 @@ export class Detail {
     this.password = this.locator.getByLabel('Password', { exact: true });
     this.fullName = this.locator.getByLabel('Full Name', { exact: true });
     this.emailAddress = this.locator.getByLabel('Email Address', { exact: true });
-    this.roles = this.locator.getByLabel('Roles', { exact: true });
+    this.roles = new Combobox(page, this.locator, { name: 'Roles' });
     this.properties = new Table(page, this.locator);
   }
 }

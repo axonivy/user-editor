@@ -21,8 +21,8 @@ import type { Table } from '@tanstack/react-table';
 import { useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../context/AppContext';
+import { useValidateName } from '../../hooks/useValidateAddUser';
 import { useKnownHotkeys } from '../../utils/useKnownHotkeys';
-import { useValidateAddUser } from './useValidateAddUser';
 
 const DIALOG_HOTKEY_IDS = ['addUserDialog'];
 
@@ -52,7 +52,7 @@ const AddDialogContent = ({ table, closeDialog }: { table: Table<UserData>; clos
   const { t } = useTranslation();
   const { data, setData, setSelectedIndex } = useAppContext();
   const [name, setName] = useState('');
-  const { nameValidationMessage } = useValidateAddUser(name, data);
+  const nameValidationMessage = useValidateName(name, data);
   const allInputsValid = !nameValidationMessage;
 
   const addUser = (event: React.MouseEvent<HTMLButtonElement> | KeyboardEvent) => {

@@ -19,17 +19,17 @@ test('edit user', async ({ page }) => {
   await expect(editor.detail.password).toBeEmpty();
   await expect(editor.detail.fullName).toHaveValue('William Tell');
   await expect(editor.detail.emailAddress).toHaveValue('william.tell@axonivy.com');
-  await expect(editor.detail.roles).toHaveValue('Teamleader');
+  await editor.detail.roles.expectToHaveValue('Teamleader');
   await editor.detail.properties.expectToHaveRowValues(['perms', 'sa'], ['status', 'married']);
 
   await editor.detail.name.fill('Updated wt');
   await editor.detail.password.fill('newpassword');
   await editor.detail.fullName.fill('Updated Full Name');
   await editor.detail.emailAddress.fill('updated.email@axonivy.com');
-  await editor.detail.roles.fill('Employee, Updated Role');
+  await editor.detail.roles.select('Employee');
   const row = await editor.detail.properties.addRow();
   await row.fill(['newProp', 'newValue']);
-  await editor.main.table.row(0).expectToHaveColumns('Updated wt', 'Updated Full Name', 'EmployeeUpdated Role');
+  await editor.main.table.row(0).expectToHaveColumns('Updated wt', 'Updated Full Name', 'TeamleaderEmployee');
 
   await editor.main.table.row(1).locator.click();
   await expect(editor.detail.header).toHaveText('ldv');
@@ -40,7 +40,7 @@ test('edit user', async ({ page }) => {
   await expect(editor.detail.password).toHaveValue('newpassword');
   await expect(editor.detail.fullName).toHaveValue('Updated Full Name');
   await expect(editor.detail.emailAddress).toHaveValue('updated.email@axonivy.com');
-  await expect(editor.detail.roles).toHaveValue('Employee,Updated Role');
+  await editor.detail.roles.expectToHaveValue('Teamleader,Employee');
   await editor.detail.properties.expectToHaveRowValues(['perms', 'sa'], ['status', 'married'], ['newProp', 'newValue']);
 });
 

@@ -1,5 +1,5 @@
 import type { ValidationResult } from '@axonivy/user-editor-protocol';
-import { useAppContext } from './AppContext';
+import { useAppContext } from '../context/AppContext';
 
 export function useValidations(path: string): ValidationResult[] {
   const { validations } = useAppContext();

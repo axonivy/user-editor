@@ -2,7 +2,7 @@ import { Button, SidebarHeader, Tooltip, TooltipContent, TooltipProvider, Toolti
 import { IvyIcons } from '@axonivy/ui-icons';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../context/AppContext';
-import { useAction } from '../../context/useAction';
+import { useAction } from '../../hooks/useAction';
 import { useKnownHotkeys } from '../../utils/useKnownHotkeys';
 import { DetailContent } from './DetailContent';
 

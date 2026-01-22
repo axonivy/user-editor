@@ -16,6 +16,7 @@
       "name": "Name",
       "password": "Password",
       "properties": "Properties",
+      "remove": "Remove",
       "roles": "Roles",
       "value": "Value"
     },
@@ -36,6 +37,7 @@
     "deleteUser": "Delete User ({{hotkey}})"
   },
   "label": {
+    "noRolesFound": "No Roles Found",
     "noUserSelected": "No User Selected",
     "removeRow": "Remove Row",
     "users": "Users"
