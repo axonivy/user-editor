@@ -1,29 +1,35 @@
 import { Button, cn, Flex, IvyIcon, useField, useReadonly } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
+import type { RoleMeta } from '@axonivy/user-editor-protocol';
 import { Combobox } from '@base-ui/react/combobox';
 import { useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAppContext } from '../../../context/AppContext';
+import { useMeta } from '../../../hooks/useMeta';
 import styles from './RoleCombobox.module.css';
 
 type RoleComboboxProps = {
   value: string[];
   onChange: (value: string[]) => void;
-  roles: Array<string>;
 };
 
-export default function RoleCombobox({ value, onChange, roles }: RoleComboboxProps) {
+export default function RoleCombobox({ value, onChange }: RoleComboboxProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const { inputProps } = useField();
   const { t } = useTranslation();
   const readonly = useReadonly();
+  const { context } = useAppContext();
+
+  const roles = useMeta('meta/roles/all', context, []).data;
   const items = useMemo(() => {
     const merged = [...roles];
-    value.filter(v => !merged.includes(v)).forEach(v => merged.push(v));
+    const mergedIds = merged.map(r => r.id);
+    value.filter(v => !mergedIds.includes(v)).forEach(v => merged.push({ id: v, label: '' }));
     return merged;
   }, [roles, value]);
 
   return (
-    <Combobox.Root items={items} multiple value={value} onValueChange={onChange} disabled={readonly}>
+    <Combobox.Root items={items.map(item => item.id)} multiple value={value} onValueChange={onChange} disabled={readonly}>
       <Combobox.Chips className={cn(styles.Chips, 'ui-combobox-root')} ref={containerRef}>
         <Combobox.Value>
           {(roles: string[]) => (
@@ -53,7 +59,7 @@ export default function RoleCombobox({ value, onChange, roles }: RoleComboboxPro
                   <Combobox.ItemIndicator className={styles.ItemIndicator}>
                     <IvyIcon icon={IvyIcons.Check} />
                   </Combobox.ItemIndicator>
-                  <div className={styles.ItemText}>{role}</div>
+                  <div className={styles.ItemText}>{listItem(role, items)}</div>
                 </Combobox.Item>
               )}
             </Combobox.List>
@@ -63,3 +69,10 @@ export default function RoleCombobox({ value, onChange, roles }: RoleComboboxPro
     </Combobox.Root>
   );
 }
+
+const listItem = (item: string, items: Array<RoleMeta>) => {
+  const role = items.find(i => i.id === item);
+  return role ? roleLabel(role) : item;
+};
+
+export const roleLabel = (role: RoleMeta) => `${role.id}${role.label ? ` (${role.label})` : ''}`;

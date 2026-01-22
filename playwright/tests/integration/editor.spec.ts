@@ -7,6 +7,22 @@ test('data', async ({ page }) => {
   await expect(editor.main.locator.getByText('Users').first()).toBeVisible();
   await editor.main.table.header(0).locator.getByRole('button', { name: 'Sort by Name' }).click();
   await editor.main.table.expectToHaveRows(['bf', 'Benjamin Franklin', 'Executive ManagerFinance'], ['hb', 'Hugo Boss'], ['hf', 'Henry Ford', 'IT Manager'], ['jb']);
+  await editor.main.table.row(0).locator.click();
+  await expect(editor.detail.header).toHaveText('bf');
+  await editor.detail.roles.expectToHaveOptions(
+    'Employee (All Employees)',
+    'Teamleader',
+    'Manager',
+    'HR Manager',
+    'Facility Manager',
+    'IT Manager',
+    'Office Manager',
+    'Executive Manager',
+    'Order',
+    'Deliverer',
+    'Processor',
+    'Finance'
+  );
 });
 
 test('save data', async ({ page, browserName }, testInfo) => {

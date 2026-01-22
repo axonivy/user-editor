@@ -4,10 +4,12 @@ import type {
   UserActionArgs,
   UserClient,
   UserEditorData,
+  UserMetaRequestTypes,
   UserSaveDataArgs,
   ValidationResult
 } from '@axonivy/user-editor-protocol';
 import { data } from './data-mock';
+import { ROLES } from './meta-mock';
 import { validateMock } from './validation-mock';
 
 export class UserClientMock implements UserClient {
@@ -41,6 +43,20 @@ export class UserClientMock implements UserClient {
 
   validate(): Promise<ValidationResult[]> {
     return Promise.resolve(validateMock(this.userData.data));
+  }
+
+  meta<TMeta extends keyof UserMetaRequestTypes>(
+    path: TMeta,
+    args: UserMetaRequestTypes[TMeta][0]
+  ): Promise<UserMetaRequestTypes[TMeta][1]> {
+    console.log('Meta:', args);
+    switch (path) {
+      case 'meta/roles/all': {
+        return Promise.resolve(ROLES);
+      }
+      default:
+        throw Error('mock meta path not programmed');
+    }
   }
 
   action(action: UserActionArgs): void {

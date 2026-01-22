@@ -14,6 +14,7 @@ import type {
   UserClient,
   UserContext,
   UserEditorData,
+  UserMetaRequestTypes,
   UserNotificationTypes,
   UserOnNotificationTypes,
   UserRequestTypes,
@@ -53,6 +54,13 @@ export class UserClientJsonRpc extends BaseRpcClient implements UserClient {
 
   validate(context: UserContext): Promise<ValidationResult[]> {
     return this.sendRequest('validate', { ...context });
+  }
+
+  meta<TMeta extends keyof UserMetaRequestTypes>(
+    path: TMeta,
+    args: UserMetaRequestTypes[TMeta][0]
+  ): Promise<UserMetaRequestTypes[TMeta][1]> {
+    return this.sendRequest(path, args);
   }
 
   action(action: UserActionArgs): void {
