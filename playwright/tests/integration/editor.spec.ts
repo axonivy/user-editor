@@ -9,8 +9,7 @@ test('data', async ({ page }) => {
   await editor.main.table.expectToHaveRows(['bf', 'Benjamin Franklin', 'Executive ManagerFinance'], ['hb', 'Hugo Boss'], ['hf', 'Henry Ford', 'IT Manager'], ['jb']);
 });
 
-// eslint-disable-next-line playwright/no-skipped-test
-test.skip('save data', async ({ page, browserName }, testInfo) => {
+test('save data', async ({ page, browserName }, testInfo) => {
   const editor = await UserEditor.openUser(page);
   const dialog = await editor.main.openAddUserDialog();
   const newUserName = `user-${browserName}-${testInfo.retry}`;
@@ -21,11 +20,12 @@ test.skip('save data', async ({ page, browserName }, testInfo) => {
 
   await row.locator.click();
   await expect(editor.detail.header).toHaveText(newUserName);
-  await editor.detail.name.fill('changed');
-  await row.expectToHaveColumns(newUserName, 'changed', '');
+  await editor.detail.fullName.fill('fullname');
+  await editor.detail.roles.select('Teamleader');
+  await row.expectToHaveColumns(newUserName, 'fullname', 'Teamleader');
 
   await page.reload();
-  await row.expectToHaveColumns(newUserName, 'changed', '');
+  await row.expectToHaveColumns(newUserName, 'fullname', 'Teamleader');
 
   await row.locator.click();
   await editor.main.delete.click();
