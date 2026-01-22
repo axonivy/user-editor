@@ -3,9 +3,11 @@ import type { Severity, UserData, ValidationResult } from '@axonivy/user-editor-
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../context/AppContext';
-import { useValidations } from '../../context/useValidation';
+import { useValidations } from '../../hooks/useValidation';
 import './DetailContent.css';
-import { PropertiesTable } from './PropertiesTable';
+import { NameInput } from './components/NameInput';
+import { PropertiesTable } from './components/PropertiesTable';
+import RoleCombobox from './components/RoleCombobox';
 
 export const DetailContent = () => {
   const { t } = useTranslation();
@@ -33,9 +35,12 @@ export const DetailContent = () => {
 
   return (
     <Flex direction='column' gap={4} className='user-editor-detail-content'>
-      <BasicField label={t('common.label.name')} message={nameMessage}>
-        <BasicInput value={user.name} onChange={event => handleAttributeChange('name', event.target.value)} />
-      </BasicField>
+      <NameInput
+        value={user.name}
+        onChange={value => handleAttributeChange('name', value)}
+        users={data.filter(u => u.name !== user.name)}
+        message={nameMessage}
+      />
       <BasicField label={t('common.label.password')} message={passwordMessage}>
         <BasicInput value={user.password} onChange={event => handleAttributeChange('password', event.target.value)} />
       </BasicField>
@@ -46,14 +51,10 @@ export const DetailContent = () => {
         <BasicInput value={user.emailAddress} onChange={event => handleAttributeChange('emailAddress', event.target.value)} />
       </BasicField>
       <BasicField label={t('common.label.roles')} message={rolesMessage}>
-        <BasicInput
-          value={user.roles.join(',')}
-          onChange={event =>
-            handleAttributeChange(
-              'roles',
-              event.target.value.split(',').map(role => role.trim())
-            )
-          }
+        <RoleCombobox
+          value={user.roles}
+          onChange={value => handleAttributeChange('roles', value)}
+          roles={['Employee', 'Teamleader', 'Manager', 'HR Manager']}
         />
       </BasicField>
       <PropertiesTable

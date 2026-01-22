@@ -16,6 +16,7 @@
       "name": "Name",
       "password": "Passwort",
       "properties": "Eigenschaften",
+      "remove": "Entfernen",
       "roles": "Rollen",
       "value": "Wert"
     },
@@ -36,6 +37,7 @@
     "deleteUser": "Benutzer löschen ({{hotkey}})"
   },
   "label": {
+    "noRolesFound": "Keine Rollen gefunden",
     "noUserSelected": "Kein Benutzer ausgewählt",
     "removeRow": "Zeile entfernen",
     "users": "Benutzer"

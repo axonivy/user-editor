@@ -1,7 +1,7 @@
 import { MessageRow, SelectRow, TableCell } from '@axonivy/ui-components';
 import type { Severity, UserData, ValidationResult } from '@axonivy/user-editor-protocol';
 import { flexRender, type Row } from '@tanstack/react-table';
-import { useValidations } from '../../context/useValidation';
+import { useValidations } from '../../hooks/useValidation';
 import './ValidationRow.css';
 
 type ValidationRowProps = {
