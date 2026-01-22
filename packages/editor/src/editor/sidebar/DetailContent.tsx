@@ -51,11 +51,7 @@ export const DetailContent = () => {
         <BasicInput value={user.emailAddress} onChange={event => handleAttributeChange('emailAddress', event.target.value)} />
       </BasicField>
       <BasicField label={t('common.label.roles')} message={rolesMessage}>
-        <RoleCombobox
-          value={user.roles}
-          onChange={value => handleAttributeChange('roles', value)}
-          roles={['Employee', 'Teamleader', 'Manager', 'HR Manager']}
-        />
+        <RoleCombobox value={user.roles} onChange={value => handleAttributeChange('roles', value)} />
       </BasicField>
       <PropertiesTable
         key={user.name}

@@ -26,7 +26,7 @@ test('edit user', async ({ page }) => {
   await editor.detail.password.fill('newpassword');
   await editor.detail.fullName.fill('Updated Full Name');
   await editor.detail.emailAddress.fill('updated.email@axonivy.com');
-  await editor.detail.roles.select('Employee');
+  await editor.detail.roles.select('Employee (All Employees)');
   const row = await editor.detail.properties.addRow();
   await row.fill(['newProp', 'newValue']);
   await editor.main.table.row(0).expectToHaveColumns('Updated wt', 'Updated Full Name', 'TeamleaderEmployee');
