@@ -60,7 +60,7 @@ const AddDialogContent = ({ table, closeDialog }: { table: Table<UserData>; clos
       return;
     }
     const id = name.trim();
-    setData(old => [...old, { name }]);
+    setData(old => [...old, { name, fullName: '', emailAddress: '', password: '', roles: [], properties: {} }]);
     if (!event.ctrlKey && !event.metaKey) {
       closeDialog();
     } else {

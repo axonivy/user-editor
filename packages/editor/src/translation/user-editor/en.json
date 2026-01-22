@@ -11,7 +11,13 @@
     "label": {
       "cancel": "Cancel",
       "details": "Details",
-      "name": "Name"
+      "emailAddress": "Email Address",
+      "fullName": "Full Name",
+      "name": "Name",
+      "password": "Password",
+      "properties": "Properties",
+      "roles": "Roles",
+      "value": "Value"
     },
     "message": {
       "errorOccurred": "An error has occurred: {{message}}"
@@ -31,6 +37,7 @@
   },
   "label": {
     "noUserSelected": "No User Selected",
+    "removeRow": "Remove Row",
     "users": "Users"
   },
   "message": {

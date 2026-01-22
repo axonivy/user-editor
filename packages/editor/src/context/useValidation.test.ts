@@ -14,7 +14,12 @@ const renderValidations = (path: string) => {
   return customRenderHook(() => useValidations(path), { wrapperProps: { appContext: { data, validations } } });
 };
 
-const data: Array<UserData> = [{ name: 'Employee' }, { name: 'Teamleader' }, { name: 'Manager' }, { name: 'HR Manager' }];
+const data: Array<UserData> = [
+  { name: 'Employee', fullName: '', emailAddress: '', password: '', roles: [], properties: {} },
+  { name: 'Teamleader', fullName: '', emailAddress: '', password: '', roles: [], properties: {} },
+  { name: 'Manager', fullName: '', emailAddress: '', password: '', roles: [], properties: {} },
+  { name: 'HR Manager', fullName: '', emailAddress: '', password: '', roles: [], properties: {} }
+];
 
 const validations: Array<ValidationResult> = [
   { message: 'message0', path: 'Employee.id', severity: 'INFO' },

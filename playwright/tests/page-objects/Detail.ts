@@ -1,4 +1,5 @@
 import { type Locator, type Page } from '@playwright/test';
+import { Table } from './components/Table';
 
 export class Detail {
   readonly page: Page;
@@ -7,6 +8,11 @@ export class Detail {
   readonly help: Locator;
   readonly content: Locator;
   readonly name: Locator;
+  readonly password: Locator;
+  readonly fullName: Locator;
+  readonly emailAddress: Locator;
+  readonly roles: Locator;
+  readonly properties: Table;
 
   constructor(page: Page) {
     this.page = page;
@@ -15,5 +21,10 @@ export class Detail {
     this.help = this.locator.getByRole('button', { name: 'Open Help' });
     this.content = this.locator.locator('.user-editor-detail-content');
     this.name = this.locator.getByLabel('Name', { exact: true });
+    this.password = this.locator.getByLabel('Password', { exact: true });
+    this.fullName = this.locator.getByLabel('Full Name', { exact: true });
+    this.emailAddress = this.locator.getByLabel('Email Address', { exact: true });
+    this.roles = this.locator.getByLabel('Roles', { exact: true });
+    this.properties = new Table(page, this.locator);
   }
 }

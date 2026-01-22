@@ -1,5 +1,13 @@
 # yaml-language-server: $schema=https://json-schema.axonivy.com/app/14.0.0/users.json
 Users:
+  - Name: wt
+    FullName: William Tell
+    Mail: william.tell@axonivy.com
+    Roles:
+      - Teamleader
+    Properties:
+      perms: sa
+      status: married
   - Name: ldv
     FullName: Leonardo Da Vinci
     Mail: leonarda.davinci@axonivy.com
@@ -17,11 +25,6 @@ Users:
       - Office Manager
       - Executive Manager
       - Processor
-  - Name: wt
-    FullName: William Tell
-    Mail: william.tell@axonivy.com
-    Roles:
-      - Teamleader
   - Name: mc
     FullName: Marie Curie
     Mail: marie.curie@axonivy.com

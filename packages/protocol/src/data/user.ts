@@ -39,8 +39,14 @@ export interface UserEditorData {
   readonly: boolean;
 }
 export interface UserData {
+  emailAddress: string;
+  fullName: string;
   name: string;
+  password: string;
+  properties: MapStringString;
+  roles: string[];
 }
+export interface MapStringString {}
 export interface UserSaveDataArgs {
   context: UserContext;
   data: UserData[];

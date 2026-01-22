@@ -13,8 +13,8 @@ test('add user', async ({ page }) => {
   const editor = await UserEditor.openMock(page);
   const dialog = await editor.main.openAddUserDialog();
   await (await dialog.name.message()).expectToBeError('Name cannot be empty.');
-  await dialog.name.locator.fill('Employee');
+  await dialog.name.locator.fill('wt');
   await (await dialog.name.message()).expectToBeError('User already exists.');
-  await dialog.name.locator.fill('Employee1');
+  await dialog.name.locator.fill('wt1');
   await expect((await dialog.name.message()).locator).toBeHidden();
 });

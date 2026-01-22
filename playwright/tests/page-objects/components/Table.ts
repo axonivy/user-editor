@@ -5,7 +5,10 @@ export class Table {
   readonly headers: Locator;
   readonly rows: Locator;
 
-  constructor(readonly page: Page, parent: Locator) {
+  constructor(
+    readonly page: Page,
+    parent: Locator
+  ) {
     this.locator = parent.locator('table');
     this.headers = this.locator.locator('th');
     this.rows = this.locator.locator('tbody').getByRole('row');
@@ -23,6 +26,12 @@ export class Table {
     return new Row(this.rows.last());
   }
 
+  async addRow() {
+    const totalRows = await this.rows.count();
+    await this.page.getByRole('button', { name: 'Add row' }).click();
+    return this.row(totalRows);
+  }
+
   async expectToHaveNoSelection() {
     for (let i = 0; i < (await this.rows.count()); i++) {
       const row = this.row(i);
@@ -33,6 +42,12 @@ export class Table {
   async expectToHaveRows(...rows: Array<Array<string>>) {
     for (let i = 0; i < rows.length; i++) {
       await this.row(i).expectToHaveColumns(...rows[i]!);
+    }
+  }
+
+  async expectToHaveRowValues(...rows: Array<Array<string>>) {
+    for (let i = 0; i < rows.length; i++) {
+      await this.row(i).expectToHaveColumnValues(...rows[i]!);
     }
   }
 
@@ -72,6 +87,13 @@ export class Row {
     return new Cell(this.locator, index);
   }
 
+  async fill(values: string[]) {
+    for (let i = 0; i < values.length; i++) {
+      const cell = this.column(i);
+      await cell.fill(values[i]!);
+    }
+  }
+
   async expectToBeSelected() {
     await expect(this.locator).toHaveAttribute('data-state', 'selected');
   }
@@ -85,6 +107,12 @@ export class Row {
       await this.column(i).expectToHaveText(values[i]!);
     }
   }
+
+  async expectToHaveColumnValues(...values: Array<string>) {
+    for (let i = 0; i < values.length; i++) {
+      await this.column(i).expectToHaveValue(values[i]!);
+    }
+  }
 }
 
 export class Cell {
@@ -94,7 +122,17 @@ export class Cell {
     this.locator = row.getByRole('cell').nth(index);
   }
 
+  async fill(value: string) {
+    const input = this.locator.getByRole('textbox');
+    await input.fill(value);
+    await input.blur();
+  }
+
   async expectToHaveText(value: string) {
     await expect(this.locator).toHaveText(value);
+  }
+
+  async expectToHaveValue(value: string) {
+    await expect(this.locator.getByRole('textbox')).toHaveValue(value);
   }
 }
