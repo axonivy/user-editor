@@ -11,6 +11,7 @@ export type Severity = ("INFO" | "WARNING" | "ERROR")
 export interface Users {
   boolean: boolean;
   editorFileContent: EditorFileContent;
+  roleMeta: RoleMeta[];
   userActionArgs: UserActionArgs;
   userContext: UserContext;
   userEditorData: UserEditorData;
@@ -21,6 +22,10 @@ export interface Users {
 }
 export interface EditorFileContent {
   content: string;
+}
+export interface RoleMeta {
+  id: string;
+  label: string;
 }
 export interface UserActionArgs {
   actionId: "openUrl";
@@ -46,7 +51,9 @@ export interface UserData {
   properties: MapStringString;
   roles: string[];
 }
-export interface MapStringString {}
+export interface MapStringString {
+  [k: string]: string;
+}
 export interface UserSaveDataArgs {
   context: UserContext;
   data: UserData[];

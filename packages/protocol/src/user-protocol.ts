@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
-import type { EditorFileContent, UserActionArgs, UserContext, UserEditorData, UserSaveDataArgs, ValidationResult } from './data/user';
-
-export type RoleMeta = { id: string; label: string };
+import type {
+  EditorFileContent,
+  RoleMeta,
+  UserActionArgs,
+  UserContext,
+  UserEditorData,
+  UserSaveDataArgs,
+  ValidationResult
+} from './data/user';
 
 export interface UserMetaRequestTypes {
   'meta/roles/all': [UserContext, Array<RoleMeta>];
