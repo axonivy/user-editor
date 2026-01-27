@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
-import type {
-  EditorFileContent,
-  RoleMeta,
-  UserActionArgs,
-  UserContext,
-  UserEditorData,
-  UserSaveDataArgs,
-  ValidationResult
-} from './data/user';
+import type { EditorFileContent, RoleMeta, UserContext, UserEditorData, UserSaveDataArgs, ValidationResult } from './data/user';
+
+export interface UserActionArgs {
+  actionId: 'openUrl';
+  context: UserContext;
+  payload: string;
+}
 
 export interface UserMetaRequestTypes {
   'meta/roles/all': [UserContext, Array<RoleMeta>];

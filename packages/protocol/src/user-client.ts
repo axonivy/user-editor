@@ -1,5 +1,5 @@
-import type { EditorFileContent, UserActionArgs, UserContext, UserEditorData, UserSaveDataArgs, ValidationResult } from './data/user';
-import type { UserMetaRequestTypes } from './user-protocol';
+import type { EditorFileContent, UserContext, UserEditorData, UserSaveDataArgs, ValidationResult } from './data/user';
+import type { UserActionArgs, UserMetaRequestTypes } from './user-protocol';
 
 export interface Event<T> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
