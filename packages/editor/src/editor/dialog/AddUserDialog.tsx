@@ -59,7 +59,6 @@ const AddDialogContent = ({ table, closeDialog }: { table: Table<UserData>; clos
     if (!allInputsValid) {
       return;
     }
-    const id = name.trim();
     setData(old => [...old, { name, fullName: '', emailAddress: '', password: '', roles: [], properties: {} }]);
     if (!event.ctrlKey && !event.metaKey) {
       closeDialog();
@@ -67,7 +66,7 @@ const AddDialogContent = ({ table, closeDialog }: { table: Table<UserData>; clos
       setName('');
       nameInputRef.current?.focus();
     }
-    selectRow(table, id);
+    selectRow(table, data.length.toString());
     setSelectedIndex(data.length);
   };
 

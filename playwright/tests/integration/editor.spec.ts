@@ -87,7 +87,7 @@ test('add', async ({ page }) => {
   await dialog.create.click();
   await editor.main.table.expectToHaveRowCount(9);
   await editor.main.table.row(8).expectToHaveColumns('NewUser');
-  await editor.main.table.row(8).locator.click();
+  await editor.main.table.row(8).expectToBeSelected();
   await editor.main.delete.click();
   await editor.main.table.expectToHaveRowCount(8);
 });
