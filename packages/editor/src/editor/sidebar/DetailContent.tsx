@@ -1,4 +1,4 @@
-import { BasicField, BasicInput, Flex, PanelMessage, type MessageData } from '@axonivy/ui-components';
+import { BasicField, BasicInput, Flex, PanelMessage, PasswordInput, type MessageData } from '@axonivy/ui-components';
 import type { Severity, UserData, ValidationResult } from '@axonivy/user-editor-protocol';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -42,7 +42,7 @@ export const DetailContent = () => {
         message={nameMessage}
       />
       <BasicField label={t('common.label.password')} message={passwordMessage}>
-        <BasicInput value={user.password} onChange={event => handleAttributeChange('password', event.target.value)} />
+        <PasswordInput value={user.password} onChange={change => handleAttributeChange('password', change)} />
       </BasicField>
       <BasicField label={t('common.label.fullName')} message={fullNameMessage}>
         <BasicInput value={user.fullName} onChange={event => handleAttributeChange('fullName', event.target.value)} />
