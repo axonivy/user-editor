@@ -140,6 +140,12 @@
   height: 0.875rem;
 }
 
+.ItemText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .Empty:not(:empty) {
   box-sizing: border-box;
   line-height: 1rem;
