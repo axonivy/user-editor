@@ -7,18 +7,19 @@ import {
   Spinner,
   useDefaultLayout,
   useHistoryData,
+  useHotkeys,
   type Unary
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { UserContext, UserData, UserEditorData } from '@axonivy/user-editor-protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import { AppProvider } from '../context/AppContext';
 import { useClient } from '../context/ClientContext';
 import { genQueryKey } from '../query/query-client';
-import './Editor.css';
+import { useKnownHotkeys } from '../utils/useKnownHotkeys';
 import { ErrorFallback } from './main/ErrorFallback';
 import { Main } from './main/Main';
 import { UserToolbar } from './main/UserToolbar';
@@ -90,9 +91,22 @@ export const Editor = ({ context, directSave }: UserEditorProps) => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.validation(context) })
   });
 
+  const detailRef = useRef<HTMLDivElement>(null);
+  const hotkeys = useKnownHotkeys();
+  useHotkeys(
+    hotkeys.focusInscription.hotkey,
+    () => {
+      setDetail(true);
+      detailRef.current?.focus();
+    },
+    {
+      scopes: ['global']
+    }
+  );
+
   if (isPending) {
     return (
-      <Flex alignItems='center' justifyContent='center' style={{ width: '100%', height: '100%' }}>
+      <Flex alignItems='center' justifyContent='center' className='size-full'>
         <Spinner />
       </Flex>
     );
@@ -119,9 +133,9 @@ export const Editor = ({ context, directSave }: UserEditorProps) => {
         helpUrl: data.helpUrl
       }}
     >
-      <ResizableGroup orientation='horizontal' defaultLayout={defaultLayout} onLayoutChanged={onLayoutChanged} className='user-editor'>
-        <ResizablePanel id='main' defaultSize='50%' minSize='30%' className='user-editor-main-panel'>
-          <Flex direction='column' className='panel'>
+      <ResizableGroup orientation='horizontal' defaultLayout={defaultLayout} onLayoutChanged={onLayoutChanged}>
+        <ResizablePanel id='user-editor-main' defaultSize='50%' minSize='30%' className='bg-n75'>
+          <Flex direction='column' className='h-full'>
             <UserToolbar />
             <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[data]}>
               <Main />
@@ -131,9 +145,9 @@ export const Editor = ({ context, directSave }: UserEditorProps) => {
         {detail && (
           <>
             <ResizableHandle />
-            <ResizablePanel id='properties' defaultSize='25%' minSize='20%' className='user-editor-detail-panel'>
-              <Flex direction='column' className='panel'>
-                <Sidebar />
+            <ResizablePanel id='user-editor-detail' defaultSize='25%' minSize='20%'>
+              <Flex direction='column' className='h-full'>
+                <Sidebar ref={detailRef} />
               </Flex>
             </ResizablePanel>
           </>

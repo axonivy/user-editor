@@ -6,7 +6,7 @@ import { useAction } from '../../hooks/useAction';
 import { useKnownHotkeys } from '../../utils/useKnownHotkeys';
 import { DetailContent } from './DetailContent';
 
-export const Sidebar = () => {
+export const Sidebar = ({ ref }: { ref: React.Ref<HTMLDivElement> }) => {
   const { data, helpUrl, selectedIndex } = useAppContext();
   const user = data[selectedIndex];
   const { t } = useTranslation();
@@ -16,7 +16,7 @@ export const Sidebar = () => {
 
   return (
     <>
-      <SidebarHeader title={user?.name ?? t('title.detail')} icon={IvyIcons.PenEdit} className='user-editor-detail-header' tabIndex={-1}>
+      <SidebarHeader title={user?.name ?? t('title.detail')} icon={IvyIcons.PenEdit} ref={ref} tabIndex={-1}>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>

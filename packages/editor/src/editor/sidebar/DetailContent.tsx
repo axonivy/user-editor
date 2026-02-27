@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../context/AppContext';
 import { useValidations } from '../../hooks/useValidation';
-import './DetailContent.css';
 import { NameInput } from './components/NameInput';
 import { PropertiesTable } from './components/PropertiesTable';
 import RoleCombobox from './components/RoleCombobox';
@@ -34,7 +33,7 @@ export const DetailContent = () => {
   const rolesMessage = fieldMessage(validations, user.name, 'roles');
 
   return (
-    <Flex direction='column' gap={4} className='user-editor-detail-content'>
+    <Flex direction='column' gap={4} className='min-h-0 overflow-auto p-3'>
       <NameInput
         value={user.name}
         onChange={value => handleAttributeChange('name', value)}

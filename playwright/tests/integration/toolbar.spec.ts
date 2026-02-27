@@ -51,7 +51,7 @@ test('focus jumps', async ({ page }) => {
   await page.keyboard.press('1');
   await expect(editor.toolbar.locator).toBeFocused();
   await page.keyboard.press('2');
-  await expect(editor.main.locator.locator('div').first()).toBeFocused();
+  await expect(editor.main.locator.locator('.ui-fieldset').first()).toBeFocused();
   await page.keyboard.press('3');
   await expect(editor.detail.header).toBeFocused();
 });

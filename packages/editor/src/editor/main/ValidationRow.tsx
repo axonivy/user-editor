@@ -1,8 +1,7 @@
-import { MessageRow, SelectRow, TableCell } from '@axonivy/ui-components';
+import { cn, MessageRow, SelectRow, TableCell } from '@axonivy/ui-components';
 import type { Severity, UserData, ValidationResult } from '@axonivy/user-editor-protocol';
 import { flexRender, type Row } from '@tanstack/react-table';
 import { useValidations } from '../../hooks/useValidation';
-import './ValidationRow.css';
 
 type ValidationRowProps = {
   row: Row<UserData>;
@@ -35,10 +34,10 @@ export const rowClass = (validations?: Array<ValidationResult>) => {
     return '';
   }
   if (validations.find(message => message.severity === 'ERROR')) {
-    return 'user-editor-row-error';
+    return cn('border-b-error!');
   }
   if (validations.find(message => message.severity === 'WARNING')) {
-    return 'user-editor-row-warning';
+    return cn('border-b-warning!');
   }
   return '';
 };
