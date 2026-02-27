@@ -9,13 +9,17 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "always"
   },
+  "editor.insertSpaces": true,
   "search.exclude": {
     "**/node_modules": true,
     "**/lib": true
   },
   "task.autoDetect": "off",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "editor.insertSpaces": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.classFunctions": ["clsx", "cn", "cva"],
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

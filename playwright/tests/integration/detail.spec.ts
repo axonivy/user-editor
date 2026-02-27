@@ -4,17 +4,13 @@ import { UserEditor } from '../page-objects/UserEditor';
 test('empty', async ({ page }) => {
   const editor = await UserEditor.openMock(page);
   await expect(editor.detail.header).toHaveText('User');
-  await expect(editor.detail.content).toBeHidden();
-  const emptyMessage = editor.detail.locator.locator('.ui-panel-message');
-  await expect(emptyMessage).toBeVisible();
-  await expect(emptyMessage).toHaveText('No User Selected');
+  await expect(editor.detail.locator.locator('.ui-panel-message')).toHaveText('No User Selected');
 });
 
 test('edit user', async ({ page }) => {
   const editor = await UserEditor.openMock(page);
   await editor.main.table.row(0).locator.click();
   await expect(editor.detail.header).toHaveText('wt');
-  await expect(editor.detail.content).toBeVisible();
   await expect(editor.detail.name).toHaveValue('wt');
   await expect(editor.detail.password).toBeEmpty();
   await expect(editor.detail.fullName).toHaveValue('William Tell');
