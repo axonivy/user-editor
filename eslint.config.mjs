@@ -13,5 +13,9 @@ export default config.defineConfig(
         tsconfigRootDir: import.meta.dirname
       }
     }
+  },
+  {
+    name: 'ignore-files',
+    ignores: ['packages/protocol/src/data/user.ts']
   }
 );
