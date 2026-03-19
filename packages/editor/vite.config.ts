@@ -14,11 +14,11 @@ export default defineConfig({
       fileName: 'editor',
       formats: ['es']
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: [
         '@axonivy/ui-components',
         '@axonivy/ui-icons',
-        '@dnd-kit/core',
+        /@base-ui\/react/,
         '@tanstack/react-query',
         '@tanstack/react-query-devtools',
         'i18next',
