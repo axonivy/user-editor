@@ -25,12 +25,12 @@ export const UserToolbar = () => {
   const readonly = useReadonly();
   const { t } = useTranslation();
 
-  const firstElement = useRef<HTMLDivElement>(null);
+  const firstElementRef = useRef<HTMLDivElement>(null);
   const hotkeys = useKnownHotkeys();
-  useHotkeys(hotkeys.focusToolbar.hotkey, () => firstElement.current?.focus(), { scopes: ['global'] });
+  useHotkeys(hotkeys.focusToolbar.hotkey, () => firstElementRef.current?.focus(), { scopes: ['global'] });
 
   return (
-    <Toolbar tabIndex={-1} ref={firstElement}>
+    <Toolbar tabIndex={-1} ref={firstElementRef}>
       <ToolbarTitle>{t('title.main', { name: context.pmv })}</ToolbarTitle>
       <Flex gap={1}>
         {!readonly && <EditButtons />}
