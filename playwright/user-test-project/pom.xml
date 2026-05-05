@@ -96,7 +96,7 @@
             </goals>
             <configuration>
               <outputDirectory>
-                ${engine.dir}/data/workspaces/Developer/${engine.test.ws}/user-test-project</outputDirectory>
+                ${engine.dir}/data/default/workspaces/Developer/${engine.test.ws}/user-test-project</outputDirectory>
               <resources>
                 <resource>
                   <directory>.</directory>
