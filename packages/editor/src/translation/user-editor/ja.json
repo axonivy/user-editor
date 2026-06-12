@@ -1,14 +1,56 @@
 {
   "common": {
-    "hotkey": {},
-    "label": {},
-    "message": {}
+    "hotkey": {
+      "focusInscription": "インスクリプションをフォーカス ({{hotkey}})",
+      "focusMain": "メインをフォーカス ({{hotkey}})",
+      "focusToolbar": "ツールバーをフォーカス ({{hotkey}})",
+      "help": "ヘルプを開く ({{hotkey}})",
+      "redo": "やり直す ({{hotkey}})",
+      "undo": "元に戻す ({{hotkey}})"
+    },
+    "label": {
+      "cancel": "キャンセル",
+      "details": "詳細",
+      "emailAddress": "メールアドレス",
+      "fullName": "完全な名前",
+      "name": "名前",
+      "password": "パスワード",
+      "properties": "プロパティ",
+      "remove": "削除",
+      "roles": "ロール",
+      "value": "値"
+    },
+    "message": {
+      "errorOccurred": "エラーが発生しました: {{message}}"
+    }
   },
   "dialog": {
-    "addUser": {}
+    "addUser": {
+      "desc": "新しいユーザを追加します.",
+      "title": "ユーザーを追加"
+    },
+    "create": "作成",
+    "createTooltip": "{{modifier}} を実行して、追加のユーザーを追加します."
   },
-  "hotkey": {},
-  "label": {},
-  "message": {},
-  "title": {}
+  "hotkey": {
+    "addUser": "ユーザー追加({{hotkey}})",
+    "deleteUser": "ユーザー削除 ({{hotkey}})"
+  },
+  "label": {
+    "noRolesFound": "役割が見つかりません",
+    "noUserSelected": "ユーザーの選択なし",
+    "removeRow": "行を削除する",
+    "users": "ユーザ名"
+  },
+  "message": {
+    "addFirstUser": "開始する最初のユーザーを追加",
+    "emptyName": "名前を空にすることはできません。",
+    "errorOnly": "エラー: {{error}}",
+    "notFound": "見つかりません",
+    "userAlreadyExists": "既に存在しているユーザ."
+  },
+  "title": {
+    "detail": "ユーザー",
+    "main": "ユーザー - {{name}}"
+  }
 }
