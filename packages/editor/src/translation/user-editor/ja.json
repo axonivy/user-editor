@@ -1,24 +1,24 @@
 {
   "common": {
     "hotkey": {
-      "focusInscription": "焦点の徴候({{hotkey}})",
-      "focusMain": "焦点の本管({{hotkey}})",
-      "focusToolbar": "焦点のツールバー({{hotkey}})",
-      "help": "オープンヘルプ({{hotkey}})",
-      "redo": "Redo ({{hotkey}})",
-      "undo": "Undo({{hotkey}})"
+      "focusInscription": "インスクリプションをフォーカス ({{hotkey}})",
+      "focusMain": "メインをフォーカス ({{hotkey}})",
+      "focusToolbar": "ツールバーをフォーカス ({{hotkey}})",
+      "help": "ヘルプを開く ({{hotkey}})",
+      "redo": "やり直す ({{hotkey}})",
+      "undo": "元に戻す ({{hotkey}})"
     },
     "label": {
       "cancel": "キャンセル",
-      "details": "インフォメーション",
+      "details": "詳細",
       "emailAddress": "メールアドレス",
       "fullName": "完全な名前",
-      "name": "お名前 (必須)",
+      "name": "名前",
       "password": "パスワード",
       "properties": "プロパティ",
       "remove": "削除",
       "roles": "ロール",
-      "value": "バリュー"
+      "value": "値"
     },
     "message": {
       "errorOccurred": "エラーが発生しました: {{message}}"
@@ -29,7 +29,7 @@
       "desc": "新しいユーザを追加します.",
       "title": "ユーザーを追加"
     },
-    "create": "作成する",
+    "create": "作成",
     "createTooltip": "{{modifier}} を実行して、追加のユーザーを追加します."
   },
   "hotkey": {
@@ -39,18 +39,18 @@
   "label": {
     "noRolesFound": "役割が見つかりません",
     "noUserSelected": "ユーザーの選択なし",
-    "removeRow": "行を削除",
+    "removeRow": "行を削除する",
     "users": "ユーザ名"
   },
   "message": {
     "addFirstUser": "開始する最初のユーザーを追加",
-    "emptyName": "お名前を空にすることはできません.",
+    "emptyName": "名前を空にすることはできません。",
     "errorOnly": "エラー: {{error}}",
-    "notFound": "お知らせ",
+    "notFound": "見つかりません",
     "userAlreadyExists": "既に存在しているユーザ."
   },
   "title": {
-    "detail": "ユーザー登録",
+    "detail": "ユーザー",
     "main": "ユーザー - {{name}}"
   }
 }
