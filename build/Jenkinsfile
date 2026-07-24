@@ -20,7 +20,7 @@ pipeline {
             }
           }
           archiveArtifacts artifacts: 'integrations/standalone/build/**', allowEmptyArchive: true
-          currentBuild.description = "<a href=${BUILD_URL}artifact/integrations/standalone/build/index.html?server=localhost:8081&secure=false&app=designer&pmv=user-test-project&file=users.yaml>&raquo; User Editor</a><br>" + 
+          currentBuild.description = "<a href=${BUILD_URL}artifact/integrations/standalone/build/index.html?server=localhost:8081&secure=false&app=designer&project=user-test-project&file=users.yaml>&raquo; User Editor</a><br>" + 
             "<a href=${BUILD_URL}artifact/integrations/standalone/build/mock.html>&raquo; User Editor Mock</a>"
 
           withChecks('ESLint') {

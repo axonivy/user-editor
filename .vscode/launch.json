@@ -8,7 +8,7 @@
       "name": "Launch Standalone (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:3000/?server=localhost:8080/~Developer-user-test-project&app=Developer-user-test-project&pmv=user-test-project&file=config/users.yaml&directSave",
+      "url": "http://localhost:3000/?server=localhost:8080/~Developer-user-test-project&app=Developer-user-test-project&project=user-test-project&file=config/users.yaml&directSave",
       "presentation": {
         "group": "4. Standalone",
         "order": 1
