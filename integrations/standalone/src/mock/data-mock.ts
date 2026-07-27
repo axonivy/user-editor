@@ -33,7 +33,7 @@ export const data: Array<UserData> = [
     fullName: 'Marie Curie',
     emailAddress: 'marie.curie@axonivy.com',
     password: '',
-    roles: ['Facility Manager'],
+    roles: ['Facility Manager', 'Unknown'],
     properties: {}
   },
   {

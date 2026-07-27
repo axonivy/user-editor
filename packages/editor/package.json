@@ -15,7 +15,6 @@
   ],
   "dependencies": {
     "@axonivy/user-editor-protocol": "workspace:~",
-    "@base-ui/react": "^1.5.0",
     "react-error-boundary": "^6.1.2"
   },
   "peerDependencies": {
