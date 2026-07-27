@@ -7,7 +7,7 @@ export const server = process.env.BASE_URL ?? 'localhost:8080/~Developer-user-te
 export const user = 'Developer';
 const ws = process.env.TEST_WS ?? '';
 const app = process.env.TEST_APP ?? 'Developer-user-test-project';
-const pmv = 'user-test-project';
+const project = 'user-test-project';
 
 export class UserEditor {
   readonly page: Page;
@@ -25,7 +25,7 @@ export class UserEditor {
 
   static async openUser(page: Page, options?: { readonly?: boolean; theme?: string }) {
     const serverUrl = server.replace(/^https?:\/\//, '');
-    let url = `?server=${serverUrl}${ws}&app=${app}&pmv=${pmv}&file=config/users.yaml`;
+    let url = `?server=${serverUrl}${ws}&app=${app}&project=${project}&file=config/users.yaml`;
     if (options) {
       url += Object.entries(options)
         .map(([key, value]) => `&${key}=${value}`)

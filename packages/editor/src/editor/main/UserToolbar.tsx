@@ -31,7 +31,7 @@ export const UserToolbar = () => {
 
   return (
     <Toolbar tabIndex={-1} ref={firstElementRef}>
-      <ToolbarTitle>{t('title.main', { name: context.pmv })}</ToolbarTitle>
+      <ToolbarTitle>{t('title.main', { name: context.project })}</ToolbarTitle>
       <Flex gap={1}>
         {!readonly && <EditButtons />}
         <TooltipProvider>

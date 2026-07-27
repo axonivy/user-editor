@@ -16,7 +16,7 @@ export class UserClientMock implements UserClient {
   private userData: UserEditorData;
   constructor() {
     this.userData = {
-      context: { app: 'mockApp', pmv: 'mockPmv', file: 'users.yaml' },
+      context: { app: 'mockApp', project: 'mockproject', file: 'users.yaml' },
       data: data,
       helpUrl: 'https://dev.axonivy.com',
       readonly: false

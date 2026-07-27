@@ -27,7 +27,7 @@ export interface RoleMeta {
 export interface UserContext {
   app: string;
   file: string;
-  pmv: string;
+  project: string;
 }
 export interface UserEditorData {
   context: UserContext;
