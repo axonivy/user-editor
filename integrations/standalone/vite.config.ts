@@ -13,8 +13,8 @@ export default defineConfig({
   server: { port: 3000 },
   resolve: {
     alias: {
-      '@axonivy/user-editor': resolve(__dirname, '../../packages/editor/src'),
-      '@axonivy/user-editor-protocol': resolve(__dirname, '../../packages/protocol/src')
+      '@axonivy/user-editor': resolve(import.meta.dirname, '../../packages/editor/src'),
+      '@axonivy/user-editor-protocol': resolve(import.meta.dirname, '../../packages/protocol/src')
     }
   },
   base: './'
