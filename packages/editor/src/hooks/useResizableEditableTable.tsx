@@ -1,19 +1,19 @@
-import { Button, deepEqual, TableAddRow } from '@axonivy/ui-components';
+import { Button, dataTableFeatures, deepEqual, TableAddRow, type DataTableFeatures } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
-import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
-import { getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, RowData } from '@tanstack/react-table';
+import { useTable } from '@tanstack/react-table';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-interface UseResizableEditableTableProps<TData> {
+interface UseResizableEditableTableProps<TData extends RowData> {
   data: TData[];
-  columns: ColumnDef<TData, string>[];
+  columns: ReadonlyArray<ColumnDef<DataTableFeatures, TData, unknown>>;
   onChange: (change: TData[]) => void;
   emptyDataObject: TData;
   specialUpdateData?: (data: Array<TData>, rowIndex: number, columnId: string) => void;
 }
 
-export const useResizableEditableTable = <TData,>({
+export const useResizableEditableTable = <TData extends RowData>({
   data,
   columns,
   onChange,
@@ -23,8 +23,6 @@ export const useResizableEditableTable = <TData,>({
   const { t } = useTranslation();
   const [tableData, setTableData] = useState<TData[]>(data);
   const [previousData, setPreviousData] = useState<TData[]>(data);
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const tableRef = useRef<HTMLTableElement | null>(null);
   if (!deepEqual(previousData, data)) {
     setTableData(data);
@@ -35,7 +33,7 @@ export const useResizableEditableTable = <TData,>({
     onChange(tableData.filter(obj => !deepEqual(obj, emptyDataObject)));
   };
 
-  const updateData = (rowId: string, columnId: string, value: string) => {
+  const updateData = (rowId: string, columnId: string, value: unknown) => {
     const rowIndex = parseInt(rowId);
     const updatedData = tableData.map((row, index) => {
       if (index === rowIndex && tableData[rowIndex]) {
@@ -54,19 +52,15 @@ export const useResizableEditableTable = <TData,>({
     }
   };
 
-  const table = useReactTable({
+  const table = useTable({
+    features: dataTableFeatures,
     data: tableData,
     columns,
-    state: { sorting, rowSelection },
     columnResizeMode: 'onChange',
     columnResizeDirection: 'ltr',
     enableRowSelection: true,
     enableMultiRowSelection: false,
     enableSubRowSelection: false,
-    onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     meta: { updateData }
   });
 
@@ -74,7 +68,7 @@ export const useResizableEditableTable = <TData,>({
     const newData = [...tableData];
     newData.push(emptyDataObject);
     updateTableData(newData);
-    setRowSelection({ [`${newData.length - 1}`]: true });
+    table.setRowSelection({ [`${newData.length - 1}`]: true });
     focusNewCell(tableRef.current, newData.length, 'input');
   };
 
@@ -89,9 +83,9 @@ export const useResizableEditableTable = <TData,>({
     const newData = [...tableData];
     newData.splice(index, 1);
     if (newData.length === 0) {
-      setRowSelection({});
+      table.setRowSelection({});
     } else if (index === tableData.length - 1) {
-      setRowSelection({ [`${newData.length - 1}`]: true });
+      table.setRowSelection({ [`${newData.length - 1}`]: true });
     }
     if (newData.length === 1 && deepEqual(newData[0], emptyDataObject)) {
       updateTableData([]);
@@ -108,7 +102,7 @@ export const useResizableEditableTable = <TData,>({
     return <Button size='small' title={t('label.removeRow')} icon={IvyIcons.Trash} onClick={() => removeRow(firstSelectedRow.index)} />;
   };
 
-  return { table, tableRef, rowSelection, selectedRowActions, setRowSelection, showAddButton };
+  return { table, tableRef, selectedRowActions, showAddButton };
 };
 
 const focusNewCell = (domTable: HTMLTableElement | null, rowIndex: number, cellType: 'input' | 'button') => {

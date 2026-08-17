@@ -13,7 +13,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
   useDialogHotkeys,
-  useHotkeys
+  useHotkeys,
+  type DataTableFeatures
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { UserData } from '@axonivy/user-editor-protocol';
@@ -26,7 +27,7 @@ import { useKnownHotkeys } from '../../utils/useKnownHotkeys';
 
 const DIALOG_HOTKEY_IDS = ['addUserDialog'];
 
-export const AddUserDialog = ({ table, children }: { table: Table<UserData>; children: ReactNode }) => {
+export const AddUserDialog = ({ table, children }: { table: Table<DataTableFeatures, UserData>; children: ReactNode }) => {
   const { open, onOpenChange } = useDialogHotkeys(DIALOG_HOTKEY_IDS);
   const { addUser: shortcut } = useKnownHotkeys();
   useHotkeys(shortcut.hotkey, () => onOpenChange(true), { scopes: ['global'], keyup: true, enabled: !open });
@@ -47,7 +48,7 @@ export const AddUserDialog = ({ table, children }: { table: Table<UserData>; chi
   );
 };
 
-const AddDialogContent = ({ table, closeDialog }: { table: Table<UserData>; closeDialog: () => void }) => {
+const AddDialogContent = ({ table, closeDialog }: { table: Table<DataTableFeatures, UserData>; closeDialog: () => void }) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
   const { data, setData, setSelectedIndex } = useAppContext();
