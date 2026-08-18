@@ -23,8 +23,8 @@ pipeline {
               npx sonar-scanner \
                 -Dsonar.projectKey=user-editor \
                 -Dsonar.projectName=user-editor \
-                -Dsonar.sources=integrations,packages \
-                -Dsonar.tests=playwright \
+                -Dsonar.sources=packages \
+                -Dsonar.tests=playwright,integrations \
                 -Dsonar.exclusions=node_modules/**
               '''
           }
