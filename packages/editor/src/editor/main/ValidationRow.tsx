@@ -1,10 +1,10 @@
-import { cn, MessageRow, SelectRow, TableCell } from '@axonivy/ui-components';
+import { cn, MessageRow, SelectRow, TableCell, type DataTableFeatures } from '@axonivy/ui-components';
 import type { Severity, UserData, ValidationResult } from '@axonivy/user-editor-protocol';
 import { flexRender, type Row } from '@tanstack/react-table';
 import { useValidations } from '../../hooks/useValidation';
 
 type ValidationRowProps = {
-  row: Row<UserData>;
+  row: Row<DataTableFeatures, UserData>;
 };
 
 export const ValidationRow = ({ row }: ValidationRowProps) => {

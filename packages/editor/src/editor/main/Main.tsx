@@ -2,6 +2,7 @@ import {
   Badge,
   BasicField,
   Button,
+  dataTableHelper,
   deleteFirstSelectedRow,
   Flex,
   IvyIcon,
@@ -11,6 +12,7 @@ import {
   SortableHeader,
   Table,
   TableBody,
+  TableGlobalFilter,
   TableResizableHeader,
   Tooltip,
   TooltipContent,
@@ -18,94 +20,80 @@ import {
   TooltipTrigger,
   useHotkeys,
   useReadonly,
-  useTableGlobalFilter,
   useTableKeyHandler,
-  useTableSelect,
-  useTableSort
+  type DataTableFeatures
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { UserData } from '@axonivy/user-editor-protocol';
-import { getCoreRowModel, useReactTable, type ColumnDef, type Table as ReactTable } from '@tanstack/react-table';
-import { useMemo, useRef } from 'react';
+import { useTable, type Table as ReactTable } from '@tanstack/react-table';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../context/AppContext';
 import { useKnownHotkeys } from '../../utils/useKnownHotkeys';
 import { AddUserDialog } from '../dialog/AddUserDialog';
 import { ValidationRow } from './ValidationRow';
 
+const { columnHelper, tableOptions } = dataTableHelper<UserData>();
+
 export const Main = () => {
   const { t } = useTranslation();
   const { data, setData, setSelectedIndex, detail, setDetail } = useAppContext();
 
-  const selection = useTableSelect<UserData>({
-    onSelect: selectedRows => {
+  const columns = columnHelper.columns([
+    columnHelper.accessor('name', {
+      header: ({ column }) => <SortableHeader column={column} name={t('common.label.name')} />,
+      cell: cell => (
+        <Flex alignItems='center' gap={1}>
+          {<IvyIcon icon={IvyIcons.User} />}
+          <span>{cell.getValue()}</span>
+        </Flex>
+      )
+    }),
+    columnHelper.accessor('fullName', {
+      header: ({ column }) => <SortableHeader column={column} name={t('common.label.fullName')} />,
+      cell: cell => (
+        <Flex alignItems='center' gap={1}>
+          <span>{cell.getValue()}</span>
+        </Flex>
+      )
+    }),
+    columnHelper.accessor(row => row.roles.join(','), {
+      id: 'roles',
+      header: ({ column }) => <SortableHeader column={column} name={t('common.label.roles')} />,
+      cell: cell => (
+        <Flex alignItems='center' gap={1}>
+          {cell
+            .getValue()
+            .split(',')
+            .filter(member => member.trim().length > 0)
+            .map(member => (
+              <Badge key={member} variant='secondary' size='s' className='p-1'>
+                {member}
+              </Badge>
+            ))}
+        </Flex>
+      )
+    })
+  ]);
+
+  const table = useTable({
+    ...tableOptions,
+    columnResizeMode: 'onChange',
+    data,
+    columns
+  });
+
+  useEffect(() => {
+    const subscription = table.atoms.rowSelection.subscribe(selectedRows => {
       const selectedRowIndex = Object.keys(selectedRows).find(key => selectedRows[key]);
       if (selectedRowIndex === undefined) {
         setSelectedIndex(-1);
         return;
       }
       setSelectedIndex(Number(selectedRowIndex));
-    }
-  });
-  const globalFilter = useTableGlobalFilter();
-  const sort = useTableSort();
-  const columns = useMemo<ColumnDef<UserData, string>[]>(
-    () => [
-      {
-        accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name={t('common.label.name')} />,
-        cell: cell => (
-          <Flex alignItems='center' gap={1}>
-            {<IvyIcon icon={IvyIcons.User} />}
-            <span>{cell.getValue()}</span>
-          </Flex>
-        )
-      },
-      {
-        accessorKey: 'fullName',
-        header: ({ column }) => <SortableHeader column={column} name={t('common.label.fullName')} />,
-        cell: cell => (
-          <Flex alignItems='center' gap={1}>
-            <span>{cell.getValue()}</span>
-          </Flex>
-        )
-      },
-      {
-        id: 'roles',
-        accessorFn: row => row.roles.join(','),
-        header: ({ column }) => <SortableHeader column={column} name={t('common.label.roles')} />,
-        cell: cell => (
-          <Flex alignItems='center' gap={1}>
-            {cell
-              .getValue()
-              .split(',')
-              .filter(member => member.trim().length > 0)
-              .map(member => (
-                <Badge key={member} variant='secondary' size='s' className='p-1'>
-                  {member}
-                </Badge>
-              ))}
-          </Flex>
-        )
-      }
-    ],
-    [t]
-  );
-
-  const table = useReactTable({
-    ...selection.options,
-    ...globalFilter.options,
-    ...sort.options,
-    columnResizeMode: 'onChange',
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    state: {
-      ...selection.tableState,
-      ...sort.tableState,
-      ...globalFilter.tableState
-    }
-  });
+    });
+    return () => subscription.unsubscribe();
+  }, [table, setSelectedIndex]);
 
   const { handleKeyDown } = useTableKeyHandler({
     table,
@@ -155,7 +143,7 @@ export const Main = () => {
         control={<Controls table={table} deleteUser={table.getSelectedRowModel().flatRows.length > 0 ? deleteUser : undefined} />}
         onClick={event => event.stopPropagation()}
       >
-        {globalFilter.filter}
+        <TableGlobalFilter table={table} />
         <div className='overflow-x-hidden'>
           <Table onKeyDown={e => handleKeyDown(e, () => setDetail(!detail))}>
             <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={resetSelection} />
@@ -171,7 +159,7 @@ export const Main = () => {
   );
 };
 
-const Controls = ({ table, deleteUser }: { table: ReactTable<UserData>; deleteUser?: () => void }) => {
+const Controls = ({ table, deleteUser }: { table: ReactTable<DataTableFeatures, UserData>; deleteUser?: () => void }) => {
   const readonly = useReadonly();
   const hotkeys = useKnownHotkeys();
   if (readonly) {
