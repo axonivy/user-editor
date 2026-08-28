@@ -19,6 +19,7 @@ export default defineConfig({
         '@axonivy/ui-components',
         '@axonivy/ui-icons',
         /@base-ui\/react/,
+        /@tanstack\/react-table/,
         '@tanstack/react-query',
         '@tanstack/react-query-devtools',
         'i18next',
