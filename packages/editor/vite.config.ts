@@ -21,7 +21,6 @@ export default defineConfig({
         /@base-ui\/react/,
         /@tanstack\/react-table/,
         '@tanstack/react-query',
-        '@tanstack/react-query-devtools',
         'i18next',
         'react-i18next',
         'react',
