@@ -22,9 +22,9 @@ const data: Array<UserData> = [
 ];
 
 const validations: Array<ValidationResult> = [
-  { message: 'message0', path: 'Employee.id', severity: 'INFO' },
-  { message: 'message1', path: 'Teamleader.parent', severity: 'INFO' },
-  { message: 'message2', path: 'Teamleader', severity: 'WARNING' },
-  { message: 'message3', path: 'Teamleader', severity: 'ERROR' },
-  { message: 'message4', path: 'Manager', severity: 'INFO' }
+  { message: 'message0', path: 'Employee.id', severity: 'INFO', code: '', url: '' },
+  { message: 'message1', path: 'Teamleader.parent', severity: 'INFO', code: '', url: '' },
+  { message: 'message2', path: 'Teamleader', severity: 'WARNING', code: '', url: '' },
+  { message: 'message3', path: 'Teamleader', severity: 'ERROR', code: '', url: '' },
+  { message: 'message4', path: 'Manager', severity: 'INFO', code: '', url: '' }
 ];

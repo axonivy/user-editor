@@ -3,6 +3,7 @@ import type { Severity, UserData, ValidationResult } from '@axonivy/user-editor-
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../context/AppContext';
+import { useAction } from '../../hooks/useAction';
 import { useValidations } from '../../hooks/useValidation';
 import { NameInput } from './components/NameInput';
 import { PropertiesTable } from './components/PropertiesTable';
@@ -11,6 +12,7 @@ import RoleCombobox from './components/RoleCombobox';
 export const DetailContent = () => {
   const { t } = useTranslation();
   const { data, setData, selectedIndex } = useAppContext();
+  const openUrl = useAction('openUrl');
   const user = useMemo(() => data[selectedIndex], [data, selectedIndex]);
   const validations = useValidations(user?.name ?? '');
   const properties = useMemo(() => Object.entries(user?.properties ?? {}).map(([key, value]) => ({ key, value })), [user?.properties]);
@@ -26,11 +28,11 @@ export const DetailContent = () => {
       return structuredClone(old);
     });
 
-  const nameMessage = fieldMessage(validations, user.name, 'name');
-  const passwordMessage = fieldMessage(validations, user.name, 'password');
-  const fullNameMessage = fieldMessage(validations, user.name, 'fullName');
-  const emailAddressMessage = fieldMessage(validations, user.name, 'emailAddress');
-  const rolesMessage = fieldMessage(validations, user.name, 'roles');
+  const nameMessage = fieldMessage(validations, user.name, 'name', openUrl);
+  const passwordMessage = fieldMessage(validations, user.name, 'password', openUrl);
+  const fullNameMessage = fieldMessage(validations, user.name, 'fullName', openUrl);
+  const emailAddressMessage = fieldMessage(validations, user.name, 'emailAddress', openUrl);
+  const rolesMessage = fieldMessage(validations, user.name, 'roles', openUrl);
 
   return (
     <Flex direction='column' gap={4} className='min-h-0 overflow-auto p-3'>
@@ -61,7 +63,11 @@ export const DetailContent = () => {
   );
 };
 
-const fieldMessage = (validations: Array<ValidationResult>, user: string, field: keyof UserData) =>
+const fieldMessage = (validations: Array<ValidationResult>, user: string, field: keyof UserData, openUrl: (url: string) => void) =>
   validations
     .filter(v => v.path.startsWith(`${user}.${field}`))
-    .map<MessageData>(v => ({ message: v.message, variant: v.severity.toLocaleLowerCase() as Lowercase<Severity> }))[0];
+    .map<MessageData>(v => ({
+      message: v.message,
+      variant: v.severity.toLocaleLowerCase() as Lowercase<Severity>,
+      reference: v.url ? { tooltip: v.code, openUrl: () => openUrl(v.url) } : undefined
+    }))[0];
