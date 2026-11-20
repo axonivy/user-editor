@@ -4,7 +4,13 @@ export const validateMock = (data: Array<UserData>): Array<ValidationResult> => 
   const validations: Array<ValidationResult> = [];
   data.forEach(user => {
     if (user.name.includes('#')) {
-      validations.push({ path: `${user.name}.name`, message: `User ${user.name} contains invalid characters`, severity: 'ERROR' });
+      validations.push({
+        path: `${user.name}.name`,
+        message: `User ${user.name} contains invalid characters`,
+        severity: 'ERROR',
+        code: 'invalid-user-name',
+        url: 'https://example.com/validation/invalid-user-name'
+      });
     }
   });
   return validations;

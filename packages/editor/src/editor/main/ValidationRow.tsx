@@ -1,6 +1,7 @@
 import { cn, MessageRow, SelectRow, TableCell, type DataTableFeatures } from '@axonivy/ui-components';
 import type { Severity, UserData, ValidationResult } from '@axonivy/user-editor-protocol';
 import { flexRender, type Row } from '@tanstack/react-table';
+import { useAction } from '../../hooks/useAction';
 import { useValidations } from '../../hooks/useValidation';
 
 type ValidationRowProps = {
@@ -9,6 +10,7 @@ type ValidationRowProps = {
 
 export const ValidationRow = ({ row }: ValidationRowProps) => {
   const validations = useValidations(row.original.name);
+  const openUrl = useAction('openUrl');
   return (
     <>
       <SelectRow row={row} className={rowClass(validations)}>
@@ -23,7 +25,11 @@ export const ValidationRow = ({ row }: ValidationRowProps) => {
           // eslint-disable-next-line @eslint-react/no-array-index-key
           key={`${index}-${val.message}`}
           columnCount={row.getVisibleCells().length}
-          message={{ message: val.message, variant: val.severity.toLocaleLowerCase() as Lowercase<Severity> }}
+          message={{
+            message: val.message,
+            variant: val.severity.toLocaleLowerCase() as Lowercase<Severity>,
+            reference: { tooltip: val.code, openUrl: () => openUrl(val.url) }
+          }}
         />
       ))}
     </>
