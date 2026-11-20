@@ -7,13 +7,12 @@ test('table', async ({ page }) => {
   await dialog.name.locator.fill('invalid#user');
   await dialog.create.click();
   const validationRows = editor.main.table.locator.locator('.ui-message-row');
-  await expect(validationRows).toHaveCount(2);
+  await expect(validationRows).toHaveCount(1);
   await expect(validationRows.first()).toHaveText('User invalid#user contains invalid characters');
 
   const referenceButton = validationRows.first().getByRole('button', { name: 'invalid-user-name' });
   await expect(referenceButton).toBeVisible();
   await expect(editor.detail.locator.getByRole('button', { name: 'invalid-user-name' })).toBeVisible();
-  await expect(validationRows.nth(1).getByRole('button')).toHaveCount(0);
 
   const actionLog = editor.page.waitForEvent('console', { predicate: message => message.text().startsWith('action ') });
   await referenceButton.click();

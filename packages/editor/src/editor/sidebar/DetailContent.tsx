@@ -69,5 +69,5 @@ const fieldMessage = (validations: Array<ValidationResult>, user: string, field:
     .map<MessageData>(v => ({
       message: v.message,
       variant: v.severity.toLocaleLowerCase() as Lowercase<Severity>,
-      reference: v.url ? { tooltip: v.code, openUrl: () => openUrl(v.url) } : undefined
+      reference: { tooltip: v.code, openUrl: () => openUrl(v.url) }
     }))[0];

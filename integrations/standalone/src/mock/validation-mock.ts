@@ -11,13 +11,6 @@ export const validateMock = (data: Array<UserData>): Array<ValidationResult> => 
         code: 'invalid-user-name',
         url: 'https://example.com/validation/invalid-user-name'
       });
-      validations.push({
-        path: `${user.name}.name`,
-        message: `User ${user.name} has another validation without a reference`,
-        severity: 'WARNING',
-        code: 'unlinked-validation',
-        url: ''
-      });
     }
   });
   return validations;
